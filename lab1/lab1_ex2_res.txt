@@ -1,0 +1,43 @@
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.2.4)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- true.
+
+?- path(a,b).
+true
+
+?- path(a,e).
+true
+
+?- path(h,d).
+false.
+
+?- path(h, g).
+false.
+
+?- path(a, e, L).
+L = [a, b, c, e] ;
+L = [a, c, e] ;
+false.
+
+?- path(a, c, L).
+L = [a, c] ;
+L = [a, b, c] ;
+false.
+
+?- path(h, g, L).
+false.
+
+?- npath(a, e, L).
+L = 4 ;
+L = 3 ;
+false.
+
+?- npath(h, g, L).
+false.
+
+?-
