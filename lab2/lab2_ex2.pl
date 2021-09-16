@@ -128,10 +128,10 @@ middle(X, [First|Xs]) :-
 middle(X, [X]).
 
 /*
-                       -------------- middle(a, X0). --------------
-                      |                                            |
-                     (1)                                          (6)
-                      |                                           ...
+                       -------------- middle(a, X0). ----------- (7) ...
+                      |                     |
+                     (1)                   (6)
+                      |                    ...
          append(Middle, [Last], Xs0),
         /                          \
       (2)                         (3)
@@ -139,17 +139,21 @@ middle(X, [X]).
    middle(a, [])               middle(a, X1).
        |                      /              \
      false                  (4)              (5)
-                             |                | 
+                             |                |
               append(Middle, [Last], [])  middle(a, [X1])
                              |                |
                            false             true
 
 
  (1) - X/a, X0/[First0|Xs0] "Enters first Clause"
- (2) - Middle/[] 
+ (2) - Middle/[]
  (3) - Middle/X1
  (4) - X/a, X1/[First1|Xs1] "Enters first Clause"
  (5) - X/a, X/X1 "Enters second Clause"
  (6) - Another branch like the one after (1), the only difference being
        another temp variable is added before and after [a]
+ (7) - More branches with more temp variables
 */
+
+% If you ask for more than one answer you will pass into another one of
+% the main branches, i.e. (1),(6),(7)......
