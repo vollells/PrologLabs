@@ -1,14 +1,26 @@
+% Lol vim sucks
 id(I).
 num(N) :- number(N).
 
 execute(BE, skip, BE).
-execute(BE, seq(C1, C2), BEO) :- execute(BE, C1, Res1), execute(Res1, C1, BEO).
+execute(BE, seq(C1, C2), BEO) :- execute(BE, C1, Res1), execute(Res1, C2, BEO).
 
-execute(BE, while(B, C), BEO) :- boolean_exp(BE, B, TV), TV=tt, execute(BE, C, BEO).
-execute(BE, while(B, C), BE) :- boolean_exp(BE, B, TV), TV=ff.
+execute(BE, while(B, C), BEO) :-
+        boolean_exp(BE, B, TV),
+        TV=tt,
+        execute(BE, C, BEO).
 
-execute(BE, if(B, C1, C2), BEO) :- boolean_exp(BE, B, TV), TV=tt, execute(BE, C1, BEO).
-execute(BE, if(B, C1, C2), BEO) :- boolean_exp(BE, B, TV), TV=ff, execute(BE, C2, BEO).
+execute(BE, while(B, _), BE) :- boolean_exp(BE, B, TV), TV=ff.
+
+execute(BE, if(B, C1, _), BEO) :-
+        boolean_exp(BE, B, TV),
+        TV=tt,
+        execute(BE, C1, BEO).
+
+execute(BE, if(B, _, C2), BEO) :-
+        boolean_exp(BE, B, TV),
+        TV=ff,
+        execute(BE, C2, BEO).
 
 execute(BE, set(id(I), E), BEO) :-
         member([I,_], BE),
@@ -100,6 +112,6 @@ arithmetic_exp(BE, E1/E2, FV) :-
 
 
 replace([[H1,H2]|BEs], ID, Val, [[H1|H2]|Tmp]) :- replace(BEs, ID, Val, Tmp).
-replace([[ID,H2]|BEs], ID, Val, [[ID|Val]|BEs]).
+replace([[ID,_H2]|BEs], ID, Val, [[ID|Val]|BEs]).
 
 
