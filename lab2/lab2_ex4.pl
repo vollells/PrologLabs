@@ -2,7 +2,6 @@
   union(X, Y, R) X and Y are sets and R is the resulting union of
   Y and X.
 */
-
 union([],[],[]).
 union([X|Xs],[],[X|Rs]) :- union(Xs, [], Rs).
 union([],[Y|Ys],[Y|Rs]) :- union([], Ys, Rs).
