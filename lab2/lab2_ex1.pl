@@ -3,15 +3,13 @@ issorted([_H]).
 issorted([H1|[H2|T]]) :- H1 =< H2, issorted([H2|T]).
 
 % findsmallest: Finds/verifies the smallest element of an list.
-findsmallest([H], M) :- M = H.
-findsmallest([H1|[H2|T]], M) :- H1 =< H2, findsmallest([H1|T], M).
-findsmallest([H1|[H2|T]], M) :- H2 < H1, findsmallest([H2|T], M).
+findsmallest([M], M).
+findsmallest([H1|[H2 | T]], M) :- H1 < H2, findsmallest([H1|T], M).
+findsmallest([H1|[H2 | T]], M) :- H1 >= H2, findsmallest([H2|T], M).
 
 % reel: Removes an element from an list, which it then outputs.
-reel([], _, []).
-reel([X], X, []).
-reel([X|Xs], E, Ys) :- dif(X, E), reel(Xs, E, Ys1), append([X], Ys1, Ys).
-reel([E|Xs], E, Ys) :- append([], Xs, Ys).
+reel([X|Xs], X, Xs).
+reel([X|Xs], E, [X|Ys]) :- dif(X, E), reel(Xs, E, Ys).
 
 % ssort: Selection Sort according to lab pm.
 ssort([], []).
@@ -28,7 +26,6 @@ qsort([], []).
 qsort([X], [X]).
 qsort([L|Ls], Ns) :-
         less(Ls, L, Gs, Ss),
-        qsort(Ss, SSs),
         qsort(Gs, SGs),
+        qsort(Ss, SSs),
         append(SSs, [L|SGs], Ns).
-
