@@ -1,0 +1,29 @@
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.2.4)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- true.
+
+?- execute([[x,3]], seq(set(y,num(1)),
+while(id(x) > num(1),
+seq(set(y, id(y) * id(x)),
+set(x, id(x) - num(1))))), Ls).
+|    |    |    Ls = [[x, 1], [y, 6]] ;
+false.
+
+?- execute([[]], skip, Ls).
+Ls = [[]] ;
+false.
+
+?- execute([[x,3]], if(id(x)<num(1),set(x, num(1)), set(x, num(2))), Ls).
+Ls = [[x, 2]] ;
+false.
+
+?- execute([[x,3]], if(id(x)>num(1),set(x, num(1)), set(x, num(2))), Ls).
+Ls = [[x, 1]] ;
+false.
+
+?- 

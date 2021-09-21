@@ -37,6 +37,7 @@ execute(BE, set(I, E), BEO) :-
         arithmetic_exp(BE, E, N),
         replace(BE, id(I), num(N), BEO).
 execute(BE, set(I, E), BEO) :-
+        \+ member([I,_], BE),
         arithmetic_exp(BE, E, N),
         append(BE, [[I,N]], BEO).
 
