@@ -7,22 +7,44 @@ For built-in help, use ?- help(Topic). or ?- apropos(Word).
 
 ?- true.
 
-?- ssort([1,2,4,7,2,1], Ls).
-Ls = [1, 1, 2, 2, 4, 7] .
+?- ssort([1,2,5,6,2,3], Ls).
+Ls = [1, 2, 2, 3, 5, 6] ;
+false.
 
-?- qsort([1,2,4,7,2,1], Ls).
-Ls = [1, 1, 2, 2, 4, 7] .
-
-?- ssort([], Ls).
-Ls = [] .
+?- qsort([1,2,5,6,2,3], Ls).
+Ls = [1, 2, 2, 3, 5, 6] ;
+false.
 
 ?- ssort([1], Ls).
-Ls = [1] .
+Ls = [1] ;
+false.
+
+?- ssort([], Ls).
+Ls = [] ;
+false.
+
+?- qsort([1], Ls).
+Ls = [1].
 
 ?- qsort([], Ls).
 Ls = [].
 
-?- qsort([1], Ls).
-Ls = [1] .
+?- issorted([1,2,3,4]).
+true ;
+false.
 
-?-
+?- issorted([1]).
+true ;
+false.
+
+?- issorted([]).
+true.
+
+?- issorted([2,3,5]).
+true ;
+false.
+
+?- issorted([2,3,1]).
+false.
+
+?- 

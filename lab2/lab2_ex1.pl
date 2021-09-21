@@ -1,4 +1,5 @@
 % issorted: Checks if list is sorted!
+issorted([]).
 issorted([_H]).
 issorted([H1|[H2|T]]) :- H1 =< H2, issorted([H2|T]).
 
@@ -23,7 +24,6 @@ less([X|Xs], L, [X|Gs], Ss) :- X>=L, less(Xs, L, Gs, Ss).
 
 % qsort: Quicksort according to lab pm.
 qsort([], []).
-qsort([X], [X]).
 qsort([L|Ls], Ns) :-
         less(Ls, L, Gs, Ss),
         qsort(Gs, SGs),
