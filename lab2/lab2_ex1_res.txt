@@ -1,0 +1,28 @@
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.2.4)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- true.
+
+?- ssort([1,2,4,7,2,1], Ls).
+Ls = [1, 1, 2, 2, 4, 7] .
+
+?- qsort([1,2,4,7,2,1], Ls).
+Ls = [1, 1, 2, 2, 4, 7] .
+
+?- ssort([], Ls).
+Ls = [] .
+
+?- ssort([1], Ls).
+Ls = [1] .
+
+?- qsort([], Ls).
+Ls = [].
+
+?- qsort([1], Ls).
+Ls = [1] .
+
+?-
