@@ -27,7 +27,10 @@ pgm(Cmd) --> cmd(Cmd).
  */
 pgm(seq(Cmd, Pgm)) --> cmd(Cmd), [;], pgm(Pgm).
 
-% cmd parses the commands while, skip, if and ':=', which is a set. It then recursively breaks down its
+/*
+ * cmd parses the commands while, skip, if and ':=', which is a set.
+ * It then recursively breaks checks if there is another command.
+ */
 cmd(while(Bool, Pgm)) --> [while], bool(Bool), [do], pgm(Pgm), [od].
 cmd(skip)--> [skip].
 cmd(if(Bool, Pgm1, Pgm2)) -->
@@ -35,17 +38,29 @@ cmd(if(Bool, Pgm1, Pgm2)) -->
         pgm(Pgm1), [else], pgm(Pgm2), [fi].
 cmd(set(Var, Exp)) --> [Var], [:=], expr(Exp).
 
+/*
+ * bool checks if we have an boolean evaluation.
+ */
 bool(Exp1<Exp2) --> expr(Exp1), [<], expr(Exp2).
 bool(Exp1>Exp2) --> expr(Exp1), [>], expr(Exp2).
 bool(Exp1=<Exp2) --> expr(Exp1), [=<], expr(Exp2).
 bool(Exp1>=Exp2) --> expr(Exp1), [>=], expr(Exp2).
 bool(Exp1==Exp2) --> expr(Exp1), [==], expr(Exp2).
 
+/*
+ * expr checks if we need to evaluate an addition operation.
+ */
 expr(Fact+Exp) --> factor(Fact), [+], expr(Exp).
 expr(Fact) --> factor(Fact).
 
+/*
+ * factor checks if an multiplication operation need to be evaluated.
+ */
 factor(Term*Fact) --> term(Term), [*], factor(Fact).
 factor(Term) --> term(Term).
 
+/*
+ * term checks if the basic element is a variable or constant.
+ */
 term(id(Id)) --> [id(Id)].
 term(num(Num)) --> [num(Num)].

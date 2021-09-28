@@ -1,0 +1,22 @@
+Welcome to SWI-Prolog (threaded, 64 bits, version 8.2.4)
+SWI-Prolog comes with ABSOLUTELY NO WARRANTY. This is free software.
+Please run ?- license. for legal details.
+
+For online help and background, visit https://www.swi-prolog.org
+For built-in help, use ?- help(Topic). or ?- apropos(Word).
+
+?- true.
+
+?- run([[x,3]], "y:=1; z:=0; while x>z do z:=z+1; y:=y*z od", Res).
+Res = [[x, 3], [y, 6], [z, 3]] ;
+false.
+
+?- run([[x,3]], "skip", Res).
+Res = [[x, 3]] ;
+false.
+
+?- run([[x,3]], "if x==3 then x:=1+x else x:=2+x fi", Res).
+Res = [[x, 4]] ;
+false.
+
+?- 
