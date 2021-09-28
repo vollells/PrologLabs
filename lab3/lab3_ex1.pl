@@ -1,20 +1,33 @@
-% Definite Clause Grammars
+% Include necessary files for lab.
 :- include('scanner.pl').
 :- include('lab2_ex3.pl').
 
+/*
+ * run(In, String, Out) first scans String and tokenizes it. The Tokens are then
+ * parsed with parse and the parsed tokens are then lastly executed with execute
+ * as defined in the Lab-PM.
+ */
 run(In, String, Out) :-
         scan_swi_prolog(String, Tokens),
-        write(Tokens),
         parse(Tokens, AbstStx),
-        write(AbstStx),
         execute(In, AbstStx, Out).
 
+/*
+ * parse(Tokens, AbstStx) parses the Tokens and returns it as an abstract syntax
+ * executable by our abstract machine.
+ */
 parse(Tokens, AbstStx) :-
         pgm(AbstStx, Tokens, []).
 
+% pgm(Cmd) enterprets the command Cmd.
 pgm(Cmd) --> cmd(Cmd).
+/*
+ * pgm(seq(Cmd, Pgm)) is used if we have multiple commands to run and sets them
+ * in a recursive seq-structure for the abstract machine.
+ */
 pgm(seq(Cmd, Pgm)) --> cmd(Cmd), [;], pgm(Pgm).
 
+% cmd parses the commands while, skip, if and ':=', which is a set. It then recursively breaks down its
 cmd(while(Bool, Pgm)) --> [while], bool(Bool), [do], pgm(Pgm), [od].
 cmd(skip)--> [skip].
 cmd(if(Bool, Pgm1, Pgm2)) -->
@@ -36,5 +49,3 @@ factor(Term) --> term(Term).
 
 term(id(Id)) --> [id(Id)].
 term(num(Num)) --> [num(Num)].
-
-

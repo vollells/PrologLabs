@@ -32,11 +32,11 @@ execute(BE, if(B, _, C2), BEO) :-
         execute(BE, C2, BEO).
 
 % set(I, E) sets the id I as expression E.
-execute(BE, set(I, E), BEO) :-
+execute(BE, set(id(I), E), BEO) :-
         member([I,_], BE),
         arithmetic_exp(BE, E, N),
         replace(BE, id(I), num(N), BEO).
-execute(BE, set(I, E), BEO) :-
+execute(BE, set(id(I), E), BEO) :-
         \+ member([I,_], BE),
         arithmetic_exp(BE, E, N),
         append(BE, [[I,N]], BEO).
