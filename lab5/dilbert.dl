@@ -1,0 +1,19 @@
+man(dilbert).
+man(wally).
+bachelor(X) :- man(X), not husband(X).
+husband(X) :- man(X), not bachelor(X).
+
+% The expected outcome are the models where dilbert and wally are men
+% and all combinations of them being bachelors or husbands.
+% They have to be a husband or a bachelor if they are a man according
+% to the stated rules above.
+
+% Resulting models seen below:
+
+% DLV [build BEN/Dec 17 2012   gcc 4.6.1]
+% {man(dilbert), man(wally), bachelor(dilbert), bachelor(wally)}
+% {man(dilbert), man(wally), husband(dilbert), bachelor(wally)}
+% {man(dilbert), man(wally), bachelor(dilbert), husband(wally)}
+% {man(dilbert), man(wally), husband(dilbert), husband(wally)}
+
+% The result and the expected outcome are the same.
